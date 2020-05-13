@@ -1,8 +1,13 @@
 package com.bl.invoicegenerator;
 public class InvoiceService {
-    private static final int COST_PER_MINUTE=1;
-    private static final double MINIMUM_COST_PER_KILOMETER=10;
-    private static final double MINIMUM_FARE=5;
+    private static final int NORMAL_COST_PER_MINUTE=1;
+    private static final double NORMAL_MINIMUM_COST_PER_KILOMETER=10;
+    private static final double NORMAL_MINIMUM_FARE=5;
+
+    private static final int PREMIUM_NORMAL_COST_PER_MINUTE=1;
+    private static final double PREMIUM_NORMAL_MINIMUM_COST_PER_KILOMETER=10;
+    private static final double PREMIUM_NORMAL_MINIMUM_FARE=5;
+
 
     private RideRepository rideRepository;
     public InvoiceService()
@@ -10,10 +15,10 @@ public class InvoiceService {
         this.rideRepository=new RideRepository();
     }
 
-    public double calculateFare(double distance, int time) {
-        double totalFare=distance*MINIMUM_COST_PER_KILOMETER+time*COST_PER_MINUTE;
-        if(totalFare<MINIMUM_FARE)
-            return MINIMUM_FARE;
+    public double calculateFare(Ride.RideType rideType, double distance, int time) {
+        double totalFare=distance*NORMAL_MINIMUM_COST_PER_KILOMETER+time*NORMAL_COST_PER_MINUTE;
+        if(totalFare<NORMAL_MINIMUM_FARE)
+            return PREMIUM_NORMAL_MINIMUM_FARE;
         return totalFare;
     }
 
@@ -21,7 +26,7 @@ public class InvoiceService {
     {
         double totalFare=0;
         for(Ride ride : rides) {
-            totalFare += calculateFare(ride.distance, ride.time);
+            totalFare += this.calculateFare(ride.rideType, ride.distance, ride.time);
         }
         return new InvoiceSummery(rides.length,totalFare);
     }

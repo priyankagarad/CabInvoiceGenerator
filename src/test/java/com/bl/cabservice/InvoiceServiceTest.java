@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 public class InvoiceServiceTest {
     InvoiceService invoiceService;
-    private InvoiceService invoiceGenerator;
 
     @Before
     public void setUp() {
@@ -18,22 +17,23 @@ public class InvoiceServiceTest {
     public void givenDistanceAndTime_shouldReturnTotalFare() {
         double distance = 2.0;
         int time = 5;
-        double fare = invoiceService.calculateFare(distance, time);
-        Assert.assertEquals(25, fare, 0.0);
+        double fare = invoiceService.calculateFare(Ride.RideType.PREMIUM,distance, time);
+        Assert.assertEquals(40, fare, 0.0);
+
     }
     @Test
     public void givenDistanceAndTime_shouldReturnMinimumFare() {
-        double distance = 0.3;
+        double distance = 0.1;
         int time = 1;
-        double fare = invoiceService.calculateFare(distance, time);
-        Assert.assertEquals(5, fare, 0.0);
+        double fare = invoiceService.calculateFare(Ride.RideType.PREMIUM, distance,time);
+        Assert.assertEquals(20, fare, 0.0);
     }
 
     @Test
     public void givenMultipleRides_shouldReturnInvoiceSummary() {
         Ride[] rides = {
-                new Ride(2.0, 5),
-                new Ride(0.1, 1)};
+                new Ride(Ride.RideType.NORMAL,2.0, 5),
+                new Ride(Ride.RideType.NORMAL,0.1, 1)};
         InvoiceSummery summery = invoiceService.multipleRide(rides);
         InvoiceSummery expectedInvoiceSummary = new InvoiceSummery(2, 30.0);
         Assert.assertEquals(expectedInvoiceSummary, summery);
@@ -42,11 +42,11 @@ public class InvoiceServiceTest {
     @Test
     public void givenUserIdAndRides_shouldReturnInvoiceSummary() {
         String userId = "asd";
-        Ride[] rides = { new Ride(2.0, 5),
-                new Ride(0.1, 1)};
+        Ride[] rides = { new Ride(Ride.RideType.NORMAL,2.0, 5),
+                new Ride(Ride.RideType.NORMAL,0.1, 1)};
         invoiceService.addRides(userId, rides);
         InvoiceSummery summary = invoiceService.getInvoiceSummary(userId);
-        InvoiceSummery expectedInvoiceSummary = new InvoiceSummery(2, 30.0);
+        InvoiceSummery expectedInvoiceSummary = new InvoiceSummery(2, 60.0);
         Assert.assertEquals(expectedInvoiceSummary, summary);
     }
 }
