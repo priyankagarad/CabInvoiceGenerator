@@ -10,7 +10,6 @@ public class InvoiceServiceTest {
     public void setUp() {
         invoiceService = new InvoiceService();
     }
-
     @Test
     public void givenDistanceAndTime_shouldReturnTotalFare() {
         double distance = 2.0;
