@@ -1,14 +1,14 @@
 package com.bl.invoicegenerator;
 public class Ride {
    public enum RideType{NORMAL,PREMIUM};
-   public RideType rideType;
+    public CabRide cabRide;
 
     public double distance;
     public int time;
 
-    public Ride(RideType rideType,double distance,int time)
+    public Ride(CabRide cabRide,double distance,int time)
     {
-        this.rideType=rideType;
+        this.cabRide=cabRide;
         this.distance=distance;
         this.time=time;
     }
