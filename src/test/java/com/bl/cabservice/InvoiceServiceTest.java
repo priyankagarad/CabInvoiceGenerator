@@ -31,9 +31,6 @@ public class InvoiceServiceTest {
     @Test
     public void givenUserIdAndRides_shouldReturnInvoiceSummary() {
         String userId = "abc.com";
-        Ride[] rides = {
-                new Ride(CabRide.NORMAL, 2.0, 5),
-                new Ride(CabRide.PREMIUM, 0.1, 1)};
         invoiceService.addRides(userId, rides);
         InvoiceSummary summary = invoiceService.getInvoiceSummary(userId);
         InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 45.0);
