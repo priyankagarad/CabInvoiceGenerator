@@ -11,13 +11,13 @@ public class InvoiceService {
         return totalFare;
     }
 
-    public double calculateFare(Ride[] rides)
+    public InvoiceSummery multipleRide(Ride[] rides)
     {
         double totalFare=0;
         for(Ride ride : rides) {
             totalFare += calculateFare(ride.distance, ride.time);
         }
-        return  totalFare;
+        return new InvoiceSummery(rides.length,totalFare);
     }
 }
 
