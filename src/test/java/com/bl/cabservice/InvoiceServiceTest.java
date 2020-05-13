@@ -1,10 +1,12 @@
 package com.bl.cabservice;
 import com.bl.invoicegenerator.InvoiceService;
+import com.bl.invoicegenerator.Ride;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 public class InvoiceServiceTest {
     InvoiceService invoiceService;
+    private InvoiceService invoiceGenerator;
 
     @Before
     public void setUp() {
@@ -20,11 +22,6 @@ public class InvoiceServiceTest {
     }
 
     @Test
-    public void givenDistanceAndTime_shouldReturnMinimumFare() {
-        double distance = 0.3;
-        int time = 1;
-        double fare = invoiceService.calculateFare(distance, time);
-        Assert.assertEquals(5, fare, 0.0);
     public void givenMultipleRides_whenRide_ShouldReturnTotalFare() {
         Ride[] rides = {new Ride(2.0,5), new Ride(0.1,1)};
         double fare = invoiceGenerator.calculateFare(rides);
